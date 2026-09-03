@@ -1,0 +1,19 @@
+{
+    "id": "creatorscodes",
+    "name": "Creators Codes",
+    "version": "1.0",
+    "description": "Systeme de codes createur : un acheteur soutient un createur, qui touche une commission sur ses achats en boutique.",
+    "url": "https://pentaist.fr",
+    "authors": [
+        "PenTaist"
+    ],
+    "azuriom_api": "1.2.0",
+    "providers": [
+        "\\Azuriom\\Plugin\\Creatorcodes\\Providers\\CreatorcodesServiceProvider",
+        "\\Azuriom\\Plugin\\Creatorcodes\\Providers\\RouteServiceProvider"
+    ],
+    "dependencies": {
+        "azuriom": "^1.2.0",
+        "shop": "^1.0.0"
+    }
+}
