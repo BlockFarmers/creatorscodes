@@ -29,10 +29,6 @@ class CreatorcodesServiceProvider extends BasePluginServiceProvider
         $this->registerAdminNavigation();
         $this->registerUserNavigation();
 
-        // Enregistrement protege : si jamais cette ligne echoue pour une
-        // raison ou une autre, on logue l'erreur au lieu de faire planter
-        // tout le site (une erreur ici, en phase boot(), n'est PAS rattrapee
-        // automatiquement par Azuriom contrairement aux erreurs de register()).
         try {
             Payment::saved(function (Payment $payment) {
                 if ($payment->wasChanged('status')) {
@@ -43,10 +39,6 @@ class CreatorcodesServiceProvider extends BasePluginServiceProvider
             report($e);
         }
 
-        // Injecte le createur actuellement soutenu dans les vues du panier
-        // et de selection des offres (surchargees a la racine du site, pas
-        // dans ce plugin : resources/views/vendor/shop/cart/index.blade.php
-        // et resources/views/vendor/shop/offers/select.blade.php).
         try {
             View::composer(['shop::cart.index', 'shop::offers.select'], function ($view) {
                 $support = auth()->check()
@@ -59,9 +51,6 @@ class CreatorcodesServiceProvider extends BasePluginServiceProvider
             report($e);
         }
 
-        // Ajoute la carte "code createur" sur la page de profil general
-        // (mecanisme officiel prevu par Azuriom pour ca, pas de surcharge
-        // de vue necessaire ici).
         try {
             View::composer('profile.index', CreatorProfileCardComposer::class);
         } catch (Throwable $e) {
@@ -69,10 +58,6 @@ class CreatorcodesServiceProvider extends BasePluginServiceProvider
         }
     }
 
-    /**
-     * Menu admin, a part (regroupe avec Shop demanderait de modifier
-     * le plugin Shop lui-meme, ce qui casserait a sa prochaine mise a jour).
-     */
     protected function adminNavigation(): array
     {
         return [
@@ -93,10 +78,6 @@ class CreatorcodesServiceProvider extends BasePluginServiceProvider
         ];
     }
 
-    /**
-     * Lien cote joueur, dans le menu utilisateur, vers la page pour
-     * choisir/changer le createur soutenu.
-     */
     protected function userNavigation(): array
     {
         return [

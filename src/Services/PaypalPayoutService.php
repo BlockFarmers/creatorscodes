@@ -42,9 +42,7 @@ class PaypalPayoutService
     }
 
     /**
-     * Envoie le versement PayPal pour une commission et met a jour son statut.
-     *
-     * @throws RuntimeException si le versement ne peut pas etre effectue
+     * @throws RuntimeException
      */
     public function payout(CreatorCommission $commission): void
     {
@@ -60,12 +58,7 @@ class PaypalPayoutService
         }
 
         $token = $this->getAccessToken();
-
-        // Identifiant de lot stable et unique par commission : si ce versement
-        // est renvoye deux fois (double-clic, retry), PayPal detecte le doublon
-        // via ce meme sender_batch_id au lieu de payer deux fois.
         $batchId = 'creatorcodes-commission-'.$commission->id;
-
         $response = Http::withToken($token)
             ->post($this->baseUrl().'/v1/payments/payouts', [
                 'sender_batch_header' => [

@@ -4,8 +4,6 @@ use Azuriom\Plugin\Creatorcodes\Http\Controllers\Admin\CommissionController;
 use Azuriom\Plugin\Creatorcodes\Http\Controllers\Admin\CreatorCodeController;
 use Illuminate\Support\Facades\Route;
 
-// Le RouteServiceProvider prefixe deja les noms de route avec 'creatorcodes.admin.'
-// (ex: 'index' ci-dessous devient 'creatorcodes.admin.index')
 Route::get('/', [CreatorCodeController::class, 'index'])->name('index');
 Route::get('/create', [CreatorCodeController::class, 'create'])->name('create');
 Route::post('/', [CreatorCodeController::class, 'store'])->name('store');

@@ -7,9 +7,6 @@ use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends BaseRouteServiceProvider
 {
-    /**
-     * Define the routes for the application.
-     */
     public function loadRoutes(): void
     {
         Route::middleware('web')

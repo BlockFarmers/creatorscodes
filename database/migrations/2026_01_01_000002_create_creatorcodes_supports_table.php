@@ -10,8 +10,6 @@ return new class extends Migration
     {
         Schema::create('creatorcodes_supports', function (Blueprint $table) {
             $table->id();
-            // Un acheteur ne soutient qu'un seul createur a la fois (comme Fortnite)
-            // Pas de FK stricte vers `users` (voir migration creatorcodes_codes)
             $table->unsignedBigInteger('user_id')->unique();
             $table->foreignId('creator_code_id')->constrained('creatorcodes_codes')->cascadeOnDelete();
             $table->timestamps();

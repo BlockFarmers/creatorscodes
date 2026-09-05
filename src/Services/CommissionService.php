@@ -13,15 +13,10 @@ class CommissionService
     {
     }
 
-    /**
-     * Confirme via plugins/shop/src/Models/Payment.php : le statut "paye"
-     * vaut bien 'completed' (voir Payment::isCompleted()).
-     */
     protected array $paidStatuses = ['completed'];
 
     public function handle(Payment $payment): void
     {
-        // Evite tout doublon si le paiement est resauvegarde plusieurs fois
         if (CreatorCommission::where('order_id', $payment->id)->exists()) {
             return;
         }
@@ -30,11 +25,6 @@ class CommissionService
             return;
         }
 
-        // Jamais de commission sur un paiement en points boutique (monnaie du
-        // site) : le champ 'price' y represente des points, pas des euros,
-        // et le taux points/euros n'est pas forcement fixe selon l'offre.
-        // Seuls les paiements en argent reel (achat d'une offre de points,
-        // ou d'un produit paye directement en euros) generent une commission.
         if ($payment->isWithSiteMoney()) {
             return;
         }
@@ -53,7 +43,6 @@ class CommissionService
             return;
         }
 
-        // Confirme via Payment.php : le champ montant s'appelle bien 'price'.
         $orderAmount = (float) $payment->price;
 
         if ($orderAmount <= 0) {
@@ -72,10 +61,6 @@ class CommissionService
             'currency' => $payment->currency,
         ]);
 
-        // Tentative de versement automatique si le createur a une adresse
-        // PayPal renseignee. En cas d'echec (email absent, erreur API...),
-        // la commission reste "en attente" : le bouton manuel sur la page
-        // admin permet de reessayer plus tard.
         if ($creatorCode->paypal_email) {
             try {
                 $this->paypal->payout($commission);

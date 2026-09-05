@@ -3,8 +3,6 @@
 @section('title', 'Commissions createurs')
 
 @section('content')
-    <h1 class="h3 mb-3">Commissions createurs</h1>
-
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif

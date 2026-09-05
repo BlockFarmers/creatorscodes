@@ -1,13 +1,9 @@
-{{-- A VERIFIER : remplace 'layouts.app' par le layout reellement utilise --}}
-{{-- par les autres pages du site (regarde le debut d'une vue du theme actif). --}}
 @extends('layouts.app')
 
 @section('title', 'Soutenir un createur')
 
 @section('content')
     <div class="container py-4">
-        <h1 class="mb-4">Soutenir un createur</h1>
-
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif

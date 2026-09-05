@@ -10,14 +10,9 @@ return new class extends Migration
     {
         Schema::create('creatorcodes_codes', function (Blueprint $table) {
             $table->id();
-            // Pas de contrainte FK stricte vers `users` : le type de la colonne
-            // `id` de la table users peut varier selon la version d'Azuriom.
-            // La relation Eloquent (voir CreatorCode::creator()) fonctionne
-            // sans contrainte reelle en base.
             $table->unsignedBigInteger('user_id');
             $table->index('user_id');
             $table->string('code')->unique();
-            // Taux de commission en pourcentage (ex: 5.00 = 5%)
             $table->decimal('commission_rate', 5, 2)->default(5.00);
             $table->boolean('active')->default(true);
             $table->timestamps();

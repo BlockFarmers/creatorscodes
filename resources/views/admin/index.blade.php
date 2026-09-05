@@ -1,13 +1,9 @@
-{{-- A VERIFIER : remplace 'admin.layouts.admin' par le layout admin reel --}}
-{{-- (ouvre une vue admin existante, ex. plugins/shop/resources/views/admin/*.blade.php, --}}
-{{-- et copie sa ligne @extends). --}}
 @extends('admin.layouts.admin')
 
 @section('title', 'Codes createur')
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1 class="h3 mb-0">Codes createur</h1>
         <div>
             <a href="{{ route('creatorcodes.admin.commissions') }}" class="btn btn-outline-secondary">
                 Voir les commissions

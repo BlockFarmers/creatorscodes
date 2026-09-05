@@ -1,5 +1,5 @@
 {
-    "name": "pentaits/creatorcodes",
+    "name": "pentaist/creatorscodes",
     "type": "azuriom-plugin",
     "description": "Systeme de codes createur pour la boutique Azuriom",
     "autoload": {
