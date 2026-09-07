@@ -1,95 +1,74 @@
-# Plugin Creator Codes pour Azuriom
+# Creators Codes
 
-Systeme de codes createur pour la boutique Azuriom (plugin Shop) :
-un acheteur choisit une fois un createur a soutenir, et chacun de ses
-achats en boutique genere une commission pour ce createur.
-Pas de reduction pour l'acheteur : uniquement une commission, visible
-et geree cote admin.
+A creator code system for your Azuriom shop: a buyer picks a creator to
+support, and every real-money purchase they make afterwards generates a
+commission for that creator. No discount for the buyer — just a commission,
+tracked and paid from the admin panel, the same way Fortnite's
+"Support-A-Creator" works.
 
-## Installation recommandee
+## Features
 
-1. Sur ton serveur, genere le squelette officiel du plugin pour etre
-   certain d'avoir les bonnes classes de base pour TA version d'Azuriom :
+- **Creator codes.** Admins create a code (e.g. `GUIGUI10`), link it to a
+  site member and set a commission rate.
+- **Persistent support.** A buyer enters a code once, from a dedicated page
+  or from their profile. The choice sticks to their account until they
+  change or remove it.
+- **Automatic commissions.** Every shop order paid with real money by a
+  supporting buyer creates a commission (order amount × commission rate).
+  Orders paid with site currency are ignored.
+- **PayPal payouts.** If a creator has a PayPal e-mail on file, their
+  commission is paid out automatically through the PayPal Payouts API as
+  soon as it's generated. Otherwise it's left pending for a manual payout.
+- **Admin dashboard.** Manage creator codes, and a commissions ledger
+  showing the amount owed to each creator, its status, and manual/PayPal
+  payout actions.
 
-   ```
-   php artisan plugin:create creatorcodes
-   ```
+## Requirements
 
-2. Copie/fusionne les fichiers de cette archive dans
-   `plugins/creatorcodes/`, en gardant le `plugin.json` et le
-   `ServiceProvider` generes par la commande (ajoute juste la
-   dependance `"shop": "^1.0.0"` dans `dependencies`, et ajoute le
-   contenu de `boot()` fourni ici dans le provider genere).
+- Azuriom >= 1.2.0
+- Shop plugin >= 1.0.0
+- A PayPal Business account with REST API credentials (client ID/secret),
+  only if you want automatic payouts
 
-3. Lance les migrations :
+## Installation
 
+1. Extract the plugin into `plugins/creatorcodes`.
+2. Run the migrations:
    ```
    php artisan migrate
    ```
-
-4. Ajoute un lien vers `route('creatorcodes.support')` quelque part
-   sur le site (menu utilisateur, page profil...) pour que les
-   acheteurs puissent choisir leur createur. Idem cote admin pour
-   `route('creatorcodes.admin.index')`.
-
-## Points a verifier avant la mise en prod
-
-Je n'ai pas d'acces direct a ton installation Azuriom, donc 4 details
-internes au plugin Shop sont a confirmer rapidement (5 minutes) avant
-de considerer que c'est fini :
-
-1. **Le hook de commande payee** (`src/Providers/CreatorcodesServiceProvider.php`)
-   ecoute `Order::saved()`. Verifie que le champ s'appelle bien
-   `status`, et surtout **la valeur exacte** qui signifie "commande
-   payee" (`src/Services/CommissionService.php`, propriete
-   `$paidStatuses`). Le plus simple :
+3. *(Optional)* To enable automatic PayPal payouts, add your credentials to
+   `.env`:
    ```
-   php artisan tinker
-   >>> \Azuriom\Plugin\Shop\Models\Order::latest()->first()->toArray()
+   CREATORCODES_PAYPAL_MODE=live
+   CREATORCODES_PAYPAL_CLIENT_ID=your-client-id
+   CREATORCODES_PAYPAL_CLIENT_SECRET=your-client-secret
    ```
-   sur une commande que tu sais payee, et regarde les valeurs de
-   `status` et du champ montant (`total` par defaut dans mon code).
+   Use `sandbox` instead of `live` while testing, then clear the config
+   cache:
+   ```
+   php artisan config:clear
+   ```
+   Without these credentials, commissions are simply left as pending and
+   can still be marked as paid manually.
 
-2. **La classe controleur de base** : j'ai suppose
-   `Azuriom\Http\Controllers\Controller`. Verifie dans un controleur
-   existant d'un autre plugin (ex. `plugins/shop/src/Http/Controllers/`).
+## Usage
 
-3. **Le layout du site** dans `resources/views/support.blade.php`
-   (`@extends('layouts.app')`) : remplace par le `@extends(...)` reel,
-   visible en ouvrant n'importe quelle vue frontend d'un autre plugin.
+**Buyers** support a creator from the "Support a creator" link in the user
+menu, or from a widget on their profile page. Support is optional and can
+be withdrawn at any time; only one creator can be supported at once.
 
-4. **Le layout admin** dans les 4 vues de `resources/views/admin/` :
-   copie la ligne `@extends(...)` d'une vue admin existante (par
-   exemple dans `plugins/shop/resources/views/admin/`).
+**Admins** manage everything under *Admin > Creators Codes*:
+- **Creators Codes**: create, edit, deactivate or delete codes, and set
+  each creator's commission rate and PayPal e-mail.
+- **Commissions**: review every commission generated, its payout status,
+  and trigger a manual "mark as paid" or a PayPal payout.
 
-Tout le reste (migrations, modeles, routes, controleurs, formulaires)
-est fonctionnel tel quel.
+## Notes
 
-## Structure
-
-```
-creatorcodes/
-  plugin.json
-  database/migrations/       3 tables : codes, supports, commissions
-  src/Models/                CreatorCode, CreatorSupport, CreatorCommission
-  src/Services/               CommissionService (calcul + log de la commission)
-  src/Providers/              ServiceProvider (hook sur les commandes)
-  src/Http/Controllers/       SupportController (front) + Admin/*
-  routes/web.php              route front : creatorcodes.support(.update/.destroy)
-  routes/admin.php            routes admin : CRUD codes + journal des commissions
-  resources/views/            vue front + 4 vues admin
-```
-
-## Fonctionnement
-
-- Un admin cree un code (`GUIGUI10`), l'associe a un utilisateur
-  (le createur) et definit un taux de commission (ex. 5%).
-- Un acheteur va sur `/creatorcodes` (ou l'URL choisie), saisit le
-  code : ce choix est **persistant**, comme le Support-a-Creator de
-  Fortnite. Il peut le changer ou le retirer a tout moment.
-- A chaque commande qui passe en statut paye, le plugin verifie si
-  l'acheteur soutient un createur actif, et enregistre une ligne de
-  commission (montant commande x taux).
-- L'admin consulte `/admin/creatorcodes/commissions` pour voir le
-  total du a chaque createur et marquer les commissions comme payees
-  une fois le virement fait manuellement.
+- A commission is only created once, the first time an order's payment
+  reaches a completed status — re-saving an already-processed order won't
+  duplicate it.
+- If a PayPal payout fails, the commission stays unpaid and the error
+  returned by PayPal is stored for reference; it can be retried from the
+  admin panel.
