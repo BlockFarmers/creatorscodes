@@ -22,8 +22,8 @@ class PaypalPayoutService
 
         if (! $clientId || ! $clientSecret) {
             throw new RuntimeException(
-                'Identifiants PayPal manquants : verifie CREATORCODES_PAYPAL_CLIENT_ID et '.
-                'CREATORCODES_PAYPAL_CLIENT_SECRET dans le fichier .env, puis relance '.
+                'Missing PayPal credentials: check CREATORCODES_PAYPAL_CLIENT_ID and'.
+                'CREATORCODES_PAYPAL_CLIENT_SECRET in the .env file, then restart.'.
                 'php artisan config:clear.'
             );
         }
@@ -35,7 +35,7 @@ class PaypalPayoutService
             ]);
 
         if ($response->failed()) {
-            throw new RuntimeException('Echec de l\'authentification PayPal : '.$response->body());
+            throw new RuntimeException('PayPal authentication failed :'.$response->body());
         }
 
         return $response->json('access_token');
@@ -47,14 +47,14 @@ class PaypalPayoutService
     public function payout(CreatorCommission $commission): void
     {
         if ($commission->paid_out) {
-            throw new RuntimeException('Cette commission est deja marquee comme payee.');
+            throw new RuntimeException('This commission is already marked as paid.');
         }
 
         $creatorCode = $commission->creatorCode;
         $email = $creatorCode?->paypal_email;
 
         if (! $email) {
-            throw new RuntimeException('Aucune adresse PayPal renseignee pour ce createur.');
+            throw new RuntimeException('No PayPal address provided for this creator.');
         }
 
         $token = $this->getAccessToken();
@@ -63,8 +63,8 @@ class PaypalPayoutService
             ->post($this->baseUrl().'/v1/payments/payouts', [
                 'sender_batch_header' => [
                     'sender_batch_id' => $batchId,
-                    'email_subject' => 'Ta commission createur',
-                    'email_message' => 'Merci pour ton soutien !',
+                    'email_subject' => 'Your creator commission',
+                    'email_message' => 'Thanks for your support !',
                 ],
                 'items' => [
                     [
@@ -74,7 +74,7 @@ class PaypalPayoutService
                             'currency' => $commission->currency,
                         ],
                         'receiver' => $email,
-                        'note' => 'Commission createur #'.$commission->id,
+                        'note' => 'Creator commission #'.$commission->id,
                         'sender_item_id' => (string) $commission->id,
                     ],
                 ],
@@ -86,7 +86,7 @@ class PaypalPayoutService
                 'paypal_error' => $response->body(),
             ]);
 
-            throw new RuntimeException('Echec du versement PayPal : '.$response->body());
+            throw new RuntimeException('PayPal payment failed : '.$response->body());
         }
 
         $commission->update([

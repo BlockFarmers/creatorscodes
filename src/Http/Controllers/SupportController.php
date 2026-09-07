@@ -35,11 +35,11 @@ class SupportController extends Controller
             ->first();
 
         if (! $creatorCode) {
-            return back()->withErrors(['code' => "Ce code createur n'existe pas ou n'est plus actif."]);
+            return back()->withErrors(['code' => "This creator code does not exist or is no longer active."]);
         }
 
         if ($creatorCode->user_id === auth()->id()) {
-            return back()->withErrors(['code' => 'Tu ne peux pas te soutenir toi-meme.']);
+            return back()->withErrors(['code' => 'You cannot support yourself.']);
         }
 
         CreatorSupport::updateOrCreate(
@@ -47,13 +47,13 @@ class SupportController extends Controller
             ['creator_code_id' => $creatorCode->id]
         );
 
-        return back()->with('success', 'Createur soutenu avec succes : '.$creatorCode->code);
+        return back()->with('success', 'Successfully supported creator : '.$creatorCode->code);
     }
 
     public function destroy(): RedirectResponse
     {
         CreatorSupport::where('user_id', auth()->id())->delete();
 
-        return back()->with('success', 'Tu ne soutiens plus aucun createur.');
+        return back()->with('success', 'You no longer support any creators.');
     }
 }

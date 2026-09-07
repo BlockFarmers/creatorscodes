@@ -1,7 +1,7 @@
 {
     "name": "pentaist/creatorscodes",
     "type": "azuriom-plugin",
-    "description": "Systeme de codes createur pour la boutique Azuriom",
+    "description": "Creator code system for the Azuriom store",
     "autoload": {
         "psr-4": {
             "Azuriom\\Plugin\\Creatorcodes\\": "src/"

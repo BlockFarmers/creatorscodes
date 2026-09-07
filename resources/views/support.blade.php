@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Soutenir un createur')
+@section('title', 'Support a creator')
 
 @section('content')
     <div class="container py-4">
@@ -22,15 +22,15 @@
             <div class="card mb-4">
                 <div class="card-body">
                     <p class="mb-2">
-                        Tu soutiens actuellement
-                        <strong>{{ $support->creatorCode->creator->name ?? 'ce createur' }}</strong>
-                        avec le code <strong>{{ $support->creatorCode->code }}</strong>.
+                        You are currently supporting
+                        <strong>{{ $support->creatorCode->creator->name ?? 'this creator' }}</strong>
+                        with the code <strong>{{ $support->creatorCode->code }}</strong>.
                     </p>
                     <form method="POST" action="{{ route('creatorcodes.support.destroy') }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-outline-danger btn-sm">
-                            Retirer mon soutien
+                            Withdraw my support
                         </button>
                     </form>
                 </div>
@@ -39,18 +39,18 @@
 
         <div class="card">
             <div class="card-body">
-                <h2 class="h5 mb-3">Entrer un code createur</h2>
+                <h2 class="h5 mb-3">Enter a creator code</h2>
                 <form method="POST" action="{{ route('creatorcodes.support.update') }}" class="row g-2">
                     @csrf
                     <div class="col-auto">
                         <input type="text" name="code" class="form-control" placeholder="Ex: GUIGUI10" required>
                     </div>
                     <div class="col-auto">
-                        <button type="submit" class="btn btn-primary">Valider</button>
+                        <button type="submit" class="btn btn-primary">Confirm</button>
                     </div>
                 </form>
                 <p class="text-muted mt-2 mb-0">
-                    Tes futurs achats en boutique verseront une commission a ce createur, sans surcout pour toi.
+                    Your future purchases in the shop will generate a commission for this creator, at no extra cost to you.
                 </p>
             </div>
         </div>

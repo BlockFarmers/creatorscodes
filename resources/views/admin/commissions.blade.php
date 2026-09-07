@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title', 'Commissions createurs')
+@section('title', 'Creator commissions')
 
 @section('content')
     @if (session('success'))
@@ -15,7 +15,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <div class="text-muted">A payer</div>
+                    <div class="text-muted">Amount due</div>
                     <div class="h4 mb-0">{{ number_format($totalPending, 2) }} €</div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <div class="text-muted">Deja payees</div>
+                    <div class="text-muted">Already paid</div>
                     <div class="h4 mb-0">{{ number_format($totalPaid, 2) }} €</div>
                 </div>
             </div>
@@ -34,12 +34,12 @@
         <thead>
             <tr>
                 <th>Date</th>
-                <th>Commande</th>
-                <th>Createur</th>
+                <th>Order</th>
+                <th>Creator</th>
                 <th>Code</th>
-                <th>Montant commande</th>
+                <th>Order amount</th>
                 <th>Commission</th>
-                <th>Statut</th>
+                <th>Status</th>
                 <th></th>
             </tr>
         </thead>
@@ -54,14 +54,14 @@
                     <td>{{ number_format($commission->commission_amount, 2) }} €</td>
                     <td>
                         @if ($commission->paid_out)
-                            <span class="badge bg-success">Payee</span>
+                            <span class="badge bg-success">Paid</span>
                             @if ($commission->paypal_batch_id)
                                 <div class="small text-muted">PayPal : {{ $commission->paypal_status }}</div>
                             @endif
                         @else
-                            <span class="badge bg-warning text-dark">En attente</span>
+                            <span class="badge bg-warning text-dark">On hold</span>
                             @if ($commission->paypal_error)
-                                <div class="small text-danger">Echec PayPal precedent</div>
+                                <div class="small text-danger">Previous PayPal failure</div>
                             @endif
                         @endif
                     </td>
@@ -69,17 +69,17 @@
                         @unless ($commission->paid_out)
                             @if ($commission->creatorCode && $commission->creatorCode->paypal_email)
                                 <form method="POST" action="{{ route('creatorcodes.admin.commissions.paypal-payout', $commission) }}" class="d-inline"
-                                      onsubmit="return confirm('Envoyer {{ number_format($commission->commission_amount, 2) }} {{ $commission->currency }} via PayPal a {{ $commission->creatorCode->paypal_email }} ? Cette action est reelle.');">
+                                      onsubmit="return confirm('Send {{ number_format($commission->commission_amount, 2) }} {{ $commission->currency }} via PayPal to {{ $commission->creatorCode->paypal_email }} ? This action is real.');">
                                     @csrf
                                     <button type="submit" class="btn btn-sm btn-primary">
-                                        Verser via PayPal
+                                        Pay via PayPal
                                     </button>
                                 </form>
                             @endif
                             <form method="POST" action="{{ route('creatorcodes.admin.commissions.mark-paid', $commission) }}" class="d-inline">
                                 @csrf
                                 <button type="submit" class="btn btn-sm btn-outline-success">
-                                    Marquer payee
+                                    Mark as paid
                                 </button>
                             </form>
                         @endunless
@@ -87,7 +87,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="8" class="text-center text-muted">Aucune commission pour le moment.</td>
+                    <td colspan="8" class="text-center text-muted">No commission for the moment.</td>
                 </tr>
             @endforelse
         </tbody>

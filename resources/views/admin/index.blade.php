@@ -1,15 +1,15 @@
 @extends('admin.layouts.admin')
 
-@section('title', 'Codes createur')
+@section('title', 'Creators codes')
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div>
             <a href="{{ route('creatorcodes.admin.commissions') }}" class="btn btn-outline-secondary">
-                Voir les commissions
+                View commissions
             </a>
             <a href="{{ route('creatorcodes.admin.create') }}" class="btn btn-primary">
-                Nouveau code
+                New code
             </a>
         </div>
     </div>
@@ -22,11 +22,11 @@
         <thead>
             <tr>
                 <th>Code</th>
-                <th>Createur</th>
+                <th>Creator</th>
                 <th>Commission</th>
-                <th>Actif</th>
-                <th>Commandes attribuees</th>
-                <th>Total genere</th>
+                <th>Active</th>
+                <th>Assigned orders</th>
+                <th>Total generates</th>
                 <th></th>
             </tr>
         </thead>
@@ -38,28 +38,28 @@
                     <td>{{ number_format($code->commission_rate, 2) }} %</td>
                     <td>
                         @if ($code->active)
-                            <span class="badge bg-success">Actif</span>
+                            <span class="badge bg-success">Active</span>
                         @else
-                            <span class="badge bg-secondary">Inactif</span>
+                            <span class="badge bg-secondary">Inactive</span>
                         @endif
                     </td>
                     <td>{{ $code->commissions_count }}</td>
                     <td>{{ number_format($code->totalCommission(), 2) }} €</td>
                     <td class="text-end">
                         <a href="{{ route('creatorcodes.admin.edit', $code) }}" class="btn btn-sm btn-outline-primary">
-                            Modifier
+                            Edit
                         </a>
                         <form method="POST" action="{{ route('creatorcodes.admin.destroy', $code) }}" class="d-inline"
-                              onsubmit="return confirm('Supprimer ce code ?');">
+                              onsubmit="return confirm('Delete code ?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-outline-danger">Supprimer</button>
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
                         </form>
                     </td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7" class="text-center text-muted">Aucun code createur pour le moment.</td>
+                    <td colspan="7" class="text-center text-muted">No creator code for the moment.</td>
                 </tr>
             @endforelse
         </tbody>

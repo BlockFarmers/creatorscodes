@@ -34,7 +34,7 @@ class CommissionController extends Controller
             'paid_out_at' => now(),
         ]);
 
-        return back()->with('success', 'Commission marquee comme payee.');
+        return back()->with('success', 'Commission marked as paid.');
     }
 
     public function payoutPaypal(CreatorCommission $commission, PaypalPayoutService $paypal): RedirectResponse
@@ -45,6 +45,6 @@ class CommissionController extends Controller
             return back()->withErrors(['paypal' => $e->getMessage()]);
         }
 
-        return back()->with('success', 'Versement PayPal envoye avec succes.');
+        return back()->with('success', 'PayPal transfer sent successfully.');
     }
 }

@@ -4,14 +4,14 @@
 
 @if($creatorSupport && $creatorSupport->creatorCode)
     <p class="mb-2">
-        Tu soutiens <strong>{{ $creatorSupport->creatorCode->creator->name ?? 'ce createur' }}</strong>
-        avec le code <strong>{{ $creatorSupport->creatorCode->code }}</strong>.
+        You support <strong>{{ $creatorSupport->creatorCode->creator->name ?? 'this creator' }}</strong>
+        with the code <strong>{{ $creatorSupport->creatorCode->code }}</strong>.
     </p>
     <form action="{{ route('creatorcodes.support.destroy') }}" method="POST">
         @csrf
         @method('DELETE')
         <button type="submit" class="btn btn-sm btn-outline-danger">
-            <i class="bi bi-x-lg"></i> Retirer mon soutien
+            <i class="bi bi-x-lg"></i> Withdraw my support
         </button>
     </form>
 @else
@@ -23,7 +23,7 @@
                    value="{{ old('code') }}" placeholder="Ex: GUIGUI10" required>
 
             <button type="submit" class="btn btn-primary">
-                <i class="bi bi-plus-lg"></i> Valider
+                <i class="bi bi-plus-lg"></i> Confirm
             </button>
 
             @error('code')

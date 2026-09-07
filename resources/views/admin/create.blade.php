@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title', 'Nouveau code createur')
+@section('title', 'New creator code')
 
 @section('content')
     <form method="POST" action="{{ route('creatorcodes.admin.store') }}">
