@@ -14,6 +14,7 @@ return new class extends Migration
             $table->index('user_id');
             $table->string('code')->unique();
             $table->decimal('commission_rate', 5, 2)->default(5.00);
+            $table->string('paypal_email')->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();
         });

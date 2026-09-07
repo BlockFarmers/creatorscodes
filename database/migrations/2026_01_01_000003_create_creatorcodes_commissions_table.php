@@ -15,8 +15,12 @@ return new class extends Migration
             $table->unsignedBigInteger('buyer_id')->nullable();
             $table->decimal('order_amount', 10, 2)->default(0);
             $table->decimal('commission_amount', 10, 2)->default(0);
+            $table->string('currency', 8)->default('EUR');
             $table->boolean('paid_out')->default(false);
             $table->timestamp('paid_out_at')->nullable();
+            $table->string('paypal_batch_id')->nullable();
+            $table->string('paypal_status')->nullable();
+            $table->text('paypal_error')->nullable();
             $table->timestamps();
         });
     }
