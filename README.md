@@ -8,7 +8,7 @@ tracked and paid from the admin panel, the same way Fortnite's
 
 ## Features
 
-- **Creator codes.** Admins create a code (e.g. `GUIGUI10`), link it to a
+- **Creators codes.** Admins create a code (e.g. `GUIGUI10`), link it to a
   site member and set a commission rate.
 - **Persistent support.** A buyer enters a code once, from a dedicated page
   or from their profile. The choice sticks to their account until they
@@ -19,7 +19,7 @@ tracked and paid from the admin panel, the same way Fortnite's
 - **PayPal payouts.** If a creator has a PayPal e-mail on file, their
   commission is paid out automatically through the PayPal Payouts API as
   soon as it's generated. Otherwise it's left pending for a manual payout.
-- **Admin dashboard.** Manage creator codes, and a commissions ledger
+- **Admin dashboard.** Manage creators codes, and a commissions ledger
   showing the amount owed to each creator, its status, and manual/PayPal
   payout actions.
 
