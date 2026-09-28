@@ -7,7 +7,7 @@
         You support <strong>{{ $creatorSupport->creatorCode->creator->name ?? 'this creator' }}</strong>
         with the code <strong>{{ $creatorSupport->creatorCode->code }}</strong>.
     </p>
-    <form action="{{ route('creatorcodes.support.destroy') }}" method="POST">
+    <form action="{{ route('creatorscodes.support.destroy') }}" method="POST">
         @csrf
         @method('DELETE')
         <button type="submit" class="btn btn-sm btn-outline-danger">
@@ -15,7 +15,7 @@
         </button>
     </form>
 @else
-    <form action="{{ route('creatorcodes.support.update') }}" method="POST">
+    <form action="{{ route('creatorscodes.support.update') }}" method="POST">
         @csrf
 
         <div class="input-group mb-3 @error('code') has-validation @enderror">

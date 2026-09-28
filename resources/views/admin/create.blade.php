@@ -3,8 +3,8 @@
 @section('title', 'New creator code')
 
 @section('content')
-    <form method="POST" action="{{ route('creatorcodes.admin.store') }}">
+    <form method="POST" action="{{ route('creatorscodes.admin.store') }}">
         @csrf
-        @include('creatorcodes::admin._form')
+        @include('creatorscodes::admin._form')
     </form>
 @endsection

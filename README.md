@@ -32,7 +32,7 @@ tracked and paid from the admin panel, the same way Fortnite's
 
 ## Installation
 
-1. Extract the plugin into `plugins/creatorcodes`.
+1. Extract the plugin into `plugins/creatorscodes`.
 2. Run the migrations:
    ```
    php artisan migrate
@@ -40,9 +40,9 @@ tracked and paid from the admin panel, the same way Fortnite's
 3. *(Optional)* To enable automatic PayPal payouts, add your credentials to
    `.env`:
    ```
-   CREATORCODES_PAYPAL_MODE=live
-   CREATORCODES_PAYPAL_CLIENT_ID=your-client-id
-   CREATORCODES_PAYPAL_CLIENT_SECRET=your-client-secret
+   CREATORSCODES_PAYPAL_MODE=live
+   CREATORSCODES_PAYPAL_CLIENT_ID=your-client-id
+   CREATORSCODES_PAYPAL_CLIENT_SECRET=your-client-secret
    ```
    Use `sandbox` instead of `live` while testing, then clear the config
    cache:

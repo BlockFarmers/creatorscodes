@@ -1,10 +1,10 @@
 <?php
 
-namespace Azuriom\Plugin\Creatorcodes\Http\Controllers;
+namespace Azuriom\Plugin\CreatorsCodes\Http\Controllers;
 
 use Azuriom\Http\Controllers\Controller;
-use Azuriom\Plugin\Creatorcodes\Models\CreatorCode;
-use Azuriom\Plugin\Creatorcodes\Models\CreatorSupport;
+use Azuriom\Plugin\CreatorsCodes\Models\CreatorCode;
+use Azuriom\Plugin\CreatorsCodes\Models\CreatorSupport;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -17,7 +17,7 @@ class SupportController extends Controller
             ->where('user_id', auth()->id())
             ->first();
 
-        return view('creatorcodes::support', [
+        return view('creatorscodes::support', [
             'support' => $support,
         ]);
     }

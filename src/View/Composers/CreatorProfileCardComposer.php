@@ -1,9 +1,9 @@
 <?php
 
-namespace Azuriom\Plugin\Creatorcodes\View\Composers;
+namespace Azuriom\Plugin\CreatorsCodes\View\Composers;
 
 use Azuriom\Extensions\Plugin\UserProfileCardComposer;
-use Azuriom\Plugin\Creatorcodes\Models\CreatorSupport;
+use Azuriom\Plugin\CreatorsCodes\Models\CreatorSupport;
 
 class CreatorProfileCardComposer extends UserProfileCardComposer
 {
@@ -20,7 +20,7 @@ class CreatorProfileCardComposer extends UserProfileCardComposer
         return [
             [
                 'name' => 'Creators Codes',
-                'view' => 'creatorcodes::profile-card',
+                'view' => 'creatorscodes::profile-card',
                 'data' => ['creatorSupport' => $support],
             ],
         ];

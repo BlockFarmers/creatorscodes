@@ -26,7 +26,7 @@
                         <strong>{{ $support->creatorCode->creator->name ?? 'this creator' }}</strong>
                         with the code <strong>{{ $support->creatorCode->code }}</strong>.
                     </p>
-                    <form method="POST" action="{{ route('creatorcodes.support.destroy') }}">
+                    <form method="POST" action="{{ route('creatorscodes.support.destroy') }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-outline-danger btn-sm">
@@ -40,7 +40,7 @@
         <div class="card">
             <div class="card-body">
                 <h2 class="h5 mb-3">Enter a creator code</h2>
-                <form method="POST" action="{{ route('creatorcodes.support.update') }}" class="row g-2">
+                <form method="POST" action="{{ route('creatorscodes.support.update') }}" class="row g-2">
                     @csrf
                     <div class="col-auto">
                         <input type="text" name="code" class="form-control" placeholder="Ex: GUIGUI10" required>

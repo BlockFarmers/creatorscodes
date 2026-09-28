@@ -1,8 +1,8 @@
 <?php
 
-namespace Azuriom\Plugin\Creatorcodes\Services;
+namespace Azuriom\Plugin\CreatorsCodes\Services;
 
-use Azuriom\Plugin\Creatorcodes\Models\CreatorCommission;
+use Azuriom\Plugin\CreatorsCodes\Models\CreatorCommission;
 use Illuminate\Support\Facades\Http;
 use RuntimeException;
 
@@ -10,20 +10,20 @@ class PaypalPayoutService
 {
     protected function baseUrl(): string
     {
-        return config('creatorcodes.paypal.mode') === 'live'
+        return config('creatorscodes.paypal.mode') === 'live'
             ? 'https://api-m.paypal.com'
             : 'https://api-m.sandbox.paypal.com';
     }
 
     protected function getAccessToken(): string
     {
-        $clientId = config('creatorcodes.paypal.client_id');
-        $clientSecret = config('creatorcodes.paypal.client_secret');
+        $clientId = config('creatorscodes.paypal.client_id');
+        $clientSecret = config('creatorscodes.paypal.client_secret');
 
         if (! $clientId || ! $clientSecret) {
             throw new RuntimeException(
-                'Missing PayPal credentials: check CREATORCODES_PAYPAL_CLIENT_ID and'.
-                'CREATORCODES_PAYPAL_CLIENT_SECRET in the .env file, then restart.'.
+                'Missing PayPal credentials: check CREATORSCODES_PAYPAL_CLIENT_ID and'.
+                'CREATORSCODES_PAYPAL_CLIENT_SECRET in the .env file, then restart.'.
                 'php artisan config:clear.'
             );
         }
@@ -58,7 +58,7 @@ class PaypalPayoutService
         }
 
         $token = $this->getAccessToken();
-        $batchId = 'creatorcodes-commission-'.$commission->id;
+        $batchId = 'creatorscodes-commission-'.$commission->id;
         $response = Http::withToken($token)
             ->post($this->baseUrl().'/v1/payments/payouts', [
                 'sender_batch_header' => [

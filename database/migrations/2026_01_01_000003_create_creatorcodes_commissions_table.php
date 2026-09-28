@@ -8,9 +8,9 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('creatorcodes_commissions', function (Blueprint $table) {
+        Schema::create('creatorscodes_commissions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('creator_code_id')->constrained('creatorcodes_codes')->cascadeOnDelete();
+            $table->foreignId('creator_code_id')->constrained('creatorscodes_codes')->cascadeOnDelete();
             $table->unsignedBigInteger('order_id')->unique();
             $table->unsignedBigInteger('buyer_id')->nullable();
             $table->decimal('order_amount', 10, 2)->default(0);
@@ -27,6 +27,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('creatorcodes_commissions');
+        Schema::dropIfExists('creatorscodes_commissions');
     }
 };

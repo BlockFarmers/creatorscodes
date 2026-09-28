@@ -1,7 +1,7 @@
 <?php
 
-use Azuriom\Plugin\Creatorcodes\Http\Controllers\Admin\CommissionController;
-use Azuriom\Plugin\Creatorcodes\Http\Controllers\Admin\CreatorCodeController;
+use Azuriom\Plugin\CreatorsCodes\Http\Controllers\Admin\CommissionController;
+use Azuriom\Plugin\CreatorsCodes\Http\Controllers\Admin\CreatorCodeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [CreatorCodeController::class, 'index'])->name('index');

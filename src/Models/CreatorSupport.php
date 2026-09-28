@@ -1,6 +1,6 @@
 <?php
 
-namespace Azuriom\Plugin\Creatorcodes\Models;
+namespace Azuriom\Plugin\CreatorsCodes\Models;
 
 use Azuriom\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CreatorSupport extends Model
 {
-    protected $table = 'creatorcodes_supports';
+    protected $table = 'creatorscodes_supports';
 
     protected $fillable = [
         'user_id',

@@ -1,6 +1,6 @@
 <?php
 
-namespace Azuriom\Plugin\Creatorcodes\Models;
+namespace Azuriom\Plugin\CreatorsCodes\Models;
 
 use Azuriom\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CreatorCode extends Model
 {
-    protected $table = 'creatorcodes_codes';
+    protected $table = 'creatorscodes_codes';
 
     protected $fillable = [
         'user_id',

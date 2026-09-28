@@ -5,10 +5,10 @@
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div>
-            <a href="{{ route('creatorcodes.admin.commissions') }}" class="btn btn-outline-secondary">
+            <a href="{{ route('creatorscodes.admin.commissions') }}" class="btn btn-outline-secondary">
                 View commissions
             </a>
-            <a href="{{ route('creatorcodes.admin.create') }}" class="btn btn-primary">
+            <a href="{{ route('creatorscodes.admin.create') }}" class="btn btn-primary">
                 New code
             </a>
         </div>
@@ -46,10 +46,10 @@
                     <td>{{ $code->commissions_count }}</td>
                     <td>{{ number_format($code->totalCommission(), 2) }} €</td>
                     <td class="text-end">
-                        <a href="{{ route('creatorcodes.admin.edit', $code) }}" class="btn btn-sm btn-outline-primary">
+                        <a href="{{ route('creatorscodes.admin.edit', $code) }}" class="btn btn-sm btn-outline-primary">
                             Edit
                         </a>
-                        <form method="POST" action="{{ route('creatorcodes.admin.destroy', $code) }}" class="d-inline"
+                        <form method="POST" action="{{ route('creatorscodes.admin.destroy', $code) }}" class="d-inline"
                               onsubmit="return confirm('Delete code ?');">
                             @csrf
                             @method('DELETE')

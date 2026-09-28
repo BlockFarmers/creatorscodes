@@ -1,10 +1,10 @@
 <?php
 
-namespace Azuriom\Plugin\Creatorcodes\Http\Controllers\Admin;
+namespace Azuriom\Plugin\CreatorsCodes\Http\Controllers\Admin;
 
 use Azuriom\Http\Controllers\Controller;
 use Azuriom\Models\User;
-use Azuriom\Plugin\Creatorcodes\Models\CreatorCode;
+use Azuriom\Plugin\CreatorsCodes\Models\CreatorCode;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -17,14 +17,14 @@ class CreatorCodeController extends Controller
             ->withCount('commissions')
             ->get();
 
-        return view('creatorcodes::admin.index', [
+        return view('creatorscodes::admin.index', [
             'codes' => $codes,
         ]);
     }
 
     public function create(): View
     {
-        return view('creatorcodes::admin.create', [
+        return view('creatorscodes::admin.create', [
             'users' => User::orderBy('name')->get(),
         ]);
     }
@@ -33,13 +33,13 @@ class CreatorCodeController extends Controller
     {
         CreatorCode::create($this->validateData($request));
 
-        return redirect()->route('creatorcodes.admin.index')
+        return redirect()->route('creatorscodes.admin.index')
             ->with('success', 'Creator code created.');
     }
 
     public function edit(CreatorCode $creatorCode): View
     {
-        return view('creatorcodes::admin.edit', [
+        return view('creatorscodes::admin.edit', [
             'creatorCode' => $creatorCode,
             'users' => User::orderBy('name')->get(),
         ]);
@@ -49,7 +49,7 @@ class CreatorCodeController extends Controller
     {
         $creatorCode->update($this->validateData($request, $creatorCode->id));
 
-        return redirect()->route('creatorcodes.admin.index')
+        return redirect()->route('creatorscodes.admin.index')
             ->with('success', 'Creator code updated.');
     }
 
@@ -57,7 +57,7 @@ class CreatorCodeController extends Controller
     {
         $creatorCode->delete();
 
-        return redirect()->route('creatorcodes.admin.index')
+        return redirect()->route('creatorscodes.admin.index')
             ->with('success', 'Creator code deleted.');
     }
 
@@ -65,7 +65,7 @@ class CreatorCodeController extends Controller
     {
         $request->merge(['code' => strtoupper((string) $request->input('code'))]);
 
-        $uniqueRule = 'unique:creatorcodes_codes,code'.($ignoreId ? ",{$ignoreId}" : '');
+        $uniqueRule = 'unique:creatorscodes_codes,code'.($ignoreId ? ",{$ignoreId}" : '');
 
         $data = $request->validate([
             'user_id' => ['required', 'exists:users,id'],

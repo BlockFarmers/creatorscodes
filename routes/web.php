@@ -1,6 +1,6 @@
 <?php
 
-use Azuriom\Plugin\Creatorcodes\Http\Controllers\SupportController;
+use Azuriom\Plugin\CreatorsCodes\Http\Controllers\SupportController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {

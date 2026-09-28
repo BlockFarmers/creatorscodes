@@ -1,13 +1,13 @@
 <?php
 
-namespace Azuriom\Plugin\Creatorcodes\Models;
+namespace Azuriom\Plugin\CreatorsCodes\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CreatorCommission extends Model
 {
-    protected $table = 'creatorcodes_commissions';
+    protected $table = 'creatorscodes_commissions';
 
     protected $fillable = [
         'creator_code_id',

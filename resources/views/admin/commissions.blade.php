@@ -68,7 +68,7 @@
                     <td class="text-end">
                         @unless ($commission->paid_out)
                             @if ($commission->creatorCode && $commission->creatorCode->paypal_email)
-                                <form method="POST" action="{{ route('creatorcodes.admin.commissions.paypal-payout', $commission) }}" class="d-inline"
+                                <form method="POST" action="{{ route('creatorscodes.admin.commissions.paypal-payout', $commission) }}" class="d-inline"
                                       onsubmit="return confirm('Send {{ number_format($commission->commission_amount, 2) }} {{ $commission->currency }} via PayPal to {{ $commission->creatorCode->paypal_email }} ? This action is real.');">
                                     @csrf
                                     <button type="submit" class="btn btn-sm btn-primary">
@@ -76,7 +76,7 @@
                                     </button>
                                 </form>
                             @endif
-                            <form method="POST" action="{{ route('creatorcodes.admin.commissions.mark-paid', $commission) }}" class="d-inline">
+                            <form method="POST" action="{{ route('creatorscodes.admin.commissions.mark-paid', $commission) }}" class="d-inline">
                                 @csrf
                                 <button type="submit" class="btn btn-sm btn-outline-success">
                                     Mark as paid

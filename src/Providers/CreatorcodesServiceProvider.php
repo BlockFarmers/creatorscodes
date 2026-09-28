@@ -1,21 +1,21 @@
 <?php
 
-namespace Azuriom\Plugin\Creatorcodes\Providers;
+namespace Azuriom\Plugin\CreatorsCodes\Providers;
 
 use Azuriom\Extensions\Plugin\BasePluginServiceProvider;
-use Azuriom\Plugin\Creatorcodes\Models\CreatorSupport;
-use Azuriom\Plugin\Creatorcodes\Services\CommissionService;
-use Azuriom\Plugin\Creatorcodes\Services\PaypalPayoutService;
-use Azuriom\Plugin\Creatorcodes\View\Composers\CreatorProfileCardComposer;
+use Azuriom\Plugin\CreatorsCodes\Models\CreatorSupport;
+use Azuriom\Plugin\CreatorsCodes\Services\CommissionService;
+use Azuriom\Plugin\CreatorsCodes\Services\PaypalPayoutService;
+use Azuriom\Plugin\CreatorsCodes\View\Composers\CreatorProfileCardComposer;
 use Azuriom\Plugin\Shop\Models\Payment;
 use Illuminate\Support\Facades\View;
 use Throwable;
 
-class CreatorcodesServiceProvider extends BasePluginServiceProvider
+class CreatorsCodesServiceProvider extends BasePluginServiceProvider
 {
     public function register(): void
     {
-        $this->mergeConfigFrom($this->pluginPath('config/creatorcodes.php'), 'creatorcodes');
+        $this->mergeConfigFrom($this->pluginPath('config/creatorscodes.php'), 'creatorscodes');
 
         $this->app->singleton(CommissionService::class);
         $this->app->singleton(PaypalPayoutService::class);
@@ -61,16 +61,16 @@ class CreatorcodesServiceProvider extends BasePluginServiceProvider
     protected function adminNavigation(): array
     {
         return [
-            'creatorcodes' => [
+            'creatorscodes' => [
                 'name' => 'Creators Codes',
                 'type' => 'dropdown',
                 'icon' => 'bi bi-person-badge',
-                'route' => 'creatorcodes.admin.*',
+                'route' => 'creatorscodes.admin.*',
                 'items' => [
-                    'creatorcodes.admin.index' => [
+                    'creatorscodes.admin.index' => [
                         'name' => 'Creators Codes',
                     ],
-                    'creatorcodes.admin.commissions' => [
+                    'creatorscodes.admin.commissions' => [
                         'name' => 'Commissions',
                     ],
                 ],
@@ -81,8 +81,8 @@ class CreatorcodesServiceProvider extends BasePluginServiceProvider
     protected function userNavigation(): array
     {
         return [
-            'creatorcodes' => [
-                'route' => 'creatorcodes.support',
+            'creatorscodes' => [
+                'route' => 'creatorscodes.support',
                 'name' => 'Support a creator',
                 'icon' => 'bi bi-person-heart',
             ],

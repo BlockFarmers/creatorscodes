@@ -8,16 +8,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('creatorcodes_supports', function (Blueprint $table) {
+        Schema::create('creatorscodes_supports', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->unique();
-            $table->foreignId('creator_code_id')->constrained('creatorcodes_codes')->cascadeOnDelete();
+            $table->foreignId('creator_code_id')->constrained('creatorscodes_codes')->cascadeOnDelete();
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('creatorcodes_supports');
+        Schema::dropIfExists('creatorscodes_supports');
     }
 };
