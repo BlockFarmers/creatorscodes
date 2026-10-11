@@ -1,6 +1,6 @@
 <?php
 
-namespace Azuriom\Plugin\CreatorsCodes\Models;
+namespace Azuriom\Plugin\Creatorscodes\Models;
 
 use Azuriom\Models\User;
 use Illuminate\Database\Eloquent\Model;

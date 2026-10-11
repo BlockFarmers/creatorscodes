@@ -1,10 +1,10 @@
 <?php
 
-namespace Azuriom\Plugin\CreatorsCodes\Http\Controllers\Admin;
+namespace Azuriom\Plugin\Creatorscodes\Http\Controllers\Admin;
 
 use Azuriom\Http\Controllers\Controller;
 use Azuriom\Models\User;
-use Azuriom\Plugin\CreatorsCodes\Models\CreatorCode;
+use Azuriom\Plugin\Creatorscodes\Models\CreatorCode;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;

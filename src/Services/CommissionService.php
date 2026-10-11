@@ -1,9 +1,9 @@
 <?php
 
-namespace Azuriom\Plugin\CreatorsCodes\Services;
+namespace Azuriom\Plugin\Creatorscodes\Services;
 
-use Azuriom\Plugin\CreatorsCodes\Models\CreatorCommission;
-use Azuriom\Plugin\CreatorsCodes\Models\CreatorSupport;
+use Azuriom\Plugin\Creatorscodes\Models\CreatorCommission;
+use Azuriom\Plugin\Creatorscodes\Models\CreatorSupport;
 use Azuriom\Plugin\Shop\Models\Payment;
 use Throwable;
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace Azuriom\Plugin\CreatorsCodes\Http\Controllers\Admin;
+namespace Azuriom\Plugin\Creatorscodes\Http\Controllers\Admin;
 
 use Azuriom\Http\Controllers\Controller;
-use Azuriom\Plugin\CreatorsCodes\Models\CreatorCommission;
-use Azuriom\Plugin\CreatorsCodes\Services\PaypalPayoutService;
+use Azuriom\Plugin\Creatorscodes\Models\CreatorCommission;
+use Azuriom\Plugin\Creatorscodes\Services\PaypalPayoutService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use RuntimeException;

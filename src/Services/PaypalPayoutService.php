@@ -1,8 +1,8 @@
 <?php
 
-namespace Azuriom\Plugin\CreatorsCodes\Services;
+namespace Azuriom\Plugin\Creatorscodes\Services;
 
-use Azuriom\Plugin\CreatorsCodes\Models\CreatorCommission;
+use Azuriom\Plugin\Creatorscodes\Models\CreatorCommission;
 use Illuminate\Support\Facades\Http;
 use RuntimeException;
 
