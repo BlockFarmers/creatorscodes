@@ -1,15 +1,15 @@
 @extends('admin.layouts.admin')
 
-@section('title', 'Creators codes')
+@section('title', trans('creatorscodes::admin.codes.title'))
 
 @section('content')
     <div class="d-flex justify-content-between align-items-center mb-3">
         <div>
             <a href="{{ route('creatorscodes.admin.commissions') }}" class="btn btn-outline-secondary">
-                View commissions
+                {{ trans('creatorscodes::admin.codes.view_commissions') }}
             </a>
             <a href="{{ route('creatorscodes.admin.create') }}" class="btn btn-primary">
-                New code
+                {{ trans('creatorscodes::admin.codes.new') }}
             </a>
         </div>
     </div>
@@ -21,12 +21,12 @@
     <table class="table table-striped align-middle">
         <thead>
             <tr>
-                <th>Code</th>
-                <th>Creator</th>
-                <th>Commission</th>
-                <th>Active</th>
-                <th>Assigned orders</th>
-                <th>Total generates</th>
+                <th>{{ trans('creatorscodes::admin.codes.columns.code') }}</th>
+                <th>{{ trans('creatorscodes::admin.codes.columns.creator') }}</th>
+                <th>{{ trans('creatorscodes::admin.codes.columns.commission') }}</th>
+                <th>{{ trans('creatorscodes::admin.codes.columns.active') }}</th>
+                <th>{{ trans('creatorscodes::admin.codes.columns.orders') }}</th>
+                <th>{{ trans('creatorscodes::admin.codes.columns.total') }}</th>
                 <th></th>
             </tr>
         </thead>
@@ -38,28 +38,28 @@
                     <td>{{ number_format($code->commission_rate, 2) }} %</td>
                     <td>
                         @if ($code->active)
-                            <span class="badge bg-success">Active</span>
+                            <span class="badge bg-success">{{ trans('creatorscodes::admin.codes.status.active') }}</span>
                         @else
-                            <span class="badge bg-secondary">Inactive</span>
+                            <span class="badge bg-secondary">{{ trans('creatorscodes::admin.codes.status.inactive') }}</span>
                         @endif
                     </td>
                     <td>{{ $code->commissions_count }}</td>
                     <td>{{ number_format($code->totalCommission(), 2) }} €</td>
                     <td class="text-end">
                         <a href="{{ route('creatorscodes.admin.edit', $code) }}" class="btn btn-sm btn-outline-primary">
-                            Edit
+                            {{ trans('creatorscodes::admin.actions.edit') }}
                         </a>
                         <form method="POST" action="{{ route('creatorscodes.admin.destroy', $code) }}" class="d-inline"
-                              onsubmit="return confirm('Delete code ?');">
+                              onsubmit="return confirm(@js(trans('creatorscodes::admin.codes.delete_confirm')));">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                            <button type="submit" class="btn btn-sm btn-outline-danger">{{ trans('creatorscodes::admin.actions.delete') }}</button>
                         </form>
                     </td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7" class="text-center text-muted">No creator code for the moment.</td>
+                    <td colspan="7" class="text-center text-muted">{{ trans('creatorscodes::admin.codes.empty') }}</td>
                 </tr>
             @endforelse
         </tbody>

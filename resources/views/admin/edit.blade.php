@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title', 'Change Creator Code')
+@section('title', trans('creatorscodes::admin.codes.edit'))
 
 @section('content')
     <form method="POST" action="{{ route('creatorscodes.admin.update', $creatorCode) }}">

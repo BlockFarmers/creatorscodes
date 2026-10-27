@@ -21,11 +21,7 @@ class PaypalPayoutService
         $clientSecret = config('creatorscodes.paypal.client_secret');
 
         if (! $clientId || ! $clientSecret) {
-            throw new RuntimeException(
-                'Missing PayPal credentials: check CREATORSCODES_PAYPAL_CLIENT_ID and'.
-                'CREATORSCODES_PAYPAL_CLIENT_SECRET in the .env file, then restart.'.
-                'php artisan config:clear.'
-            );
+            throw new RuntimeException(trans('creatorscodes::admin.paypal.errors.missing_credentials'));
         }
 
         $response = Http::asForm()
@@ -35,7 +31,7 @@ class PaypalPayoutService
             ]);
 
         if ($response->failed()) {
-            throw new RuntimeException('PayPal authentication failed :'.$response->body());
+            throw new RuntimeException(trans('creatorscodes::admin.paypal.errors.auth_failed', ['error' => $response->body()]));
         }
 
         return $response->json('access_token');
@@ -47,14 +43,14 @@ class PaypalPayoutService
     public function payout(CreatorCommission $commission): void
     {
         if ($commission->paid_out) {
-            throw new RuntimeException('This commission is already marked as paid.');
+            throw new RuntimeException(trans('creatorscodes::admin.paypal.errors.already_paid'));
         }
 
         $creatorCode = $commission->creatorCode;
         $email = $creatorCode?->paypal_email;
 
         if (! $email) {
-            throw new RuntimeException('No PayPal address provided for this creator.');
+            throw new RuntimeException(trans('creatorscodes::admin.paypal.errors.no_email'));
         }
 
         $token = $this->getAccessToken();
@@ -63,8 +59,8 @@ class PaypalPayoutService
             ->post($this->baseUrl().'/v1/payments/payouts', [
                 'sender_batch_header' => [
                     'sender_batch_id' => $batchId,
-                    'email_subject' => 'Your creator commission',
-                    'email_message' => 'Thanks for your support !',
+                    'email_subject' => trans('creatorscodes::admin.paypal.email_subject'),
+                    'email_message' => trans('creatorscodes::admin.paypal.email_message'),
                 ],
                 'items' => [
                     [
@@ -74,7 +70,7 @@ class PaypalPayoutService
                             'currency' => $commission->currency,
                         ],
                         'receiver' => $email,
-                        'note' => 'Creator commission #'.$commission->id,
+                        'note' => trans('creatorscodes::admin.paypal.note', ['id' => $commission->id]),
                         'sender_item_id' => (string) $commission->id,
                     ],
                 ],
@@ -86,7 +82,7 @@ class PaypalPayoutService
                 'paypal_error' => $response->body(),
             ]);
 
-            throw new RuntimeException('PayPal payment failed : '.$response->body());
+            throw new RuntimeException(trans('creatorscodes::admin.paypal.errors.payout_failed', ['error' => $response->body()]));
         }
 
         $commission->update([

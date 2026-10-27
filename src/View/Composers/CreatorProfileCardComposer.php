@@ -19,7 +19,7 @@ class CreatorProfileCardComposer extends UserProfileCardComposer
 
         return [
             [
-                'name' => 'Creators Codes',
+                'name' => trans('creatorscodes::messages.profile.title'),
                 'view' => 'creatorscodes::profile-card',
                 'data' => ['creatorSupport' => $support],
             ],

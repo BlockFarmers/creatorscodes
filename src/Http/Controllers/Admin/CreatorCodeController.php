@@ -34,7 +34,7 @@ class CreatorCodeController extends Controller
         CreatorCode::create($this->validateData($request));
 
         return redirect()->route('creatorscodes.admin.index')
-            ->with('success', 'Creator code created.');
+            ->with('success', trans('creatorscodes::admin.codes.created'));
     }
 
     public function edit(CreatorCode $creatorCode): View
@@ -50,7 +50,7 @@ class CreatorCodeController extends Controller
         $creatorCode->update($this->validateData($request, $creatorCode->id));
 
         return redirect()->route('creatorscodes.admin.index')
-            ->with('success', 'Creator code updated.');
+            ->with('success', trans('creatorscodes::admin.codes.updated'));
     }
 
     public function destroy(CreatorCode $creatorCode): RedirectResponse
@@ -58,7 +58,7 @@ class CreatorCodeController extends Controller
         $creatorCode->delete();
 
         return redirect()->route('creatorscodes.admin.index')
-            ->with('success', 'Creator code deleted.');
+            ->with('success', trans('creatorscodes::admin.codes.deleted'));
     }
 
     protected function validateData(Request $request, ?int $ignoreId = null): array
