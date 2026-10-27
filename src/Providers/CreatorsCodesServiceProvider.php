@@ -62,16 +62,16 @@ class CreatorsCodesServiceProvider extends BasePluginServiceProvider
     {
         return [
             'creatorscodes' => [
-                'name' => 'creatorscodes::admin.nav.title',
+                'name' => trans('creatorscodes::admin.nav.title'),
                 'type' => 'dropdown',
                 'icon' => 'bi bi-person-badge',
                 'route' => 'creatorscodes.admin.*',
                 'items' => [
                     'creatorscodes.admin.index' => [
-                        'name' => 'creatorscodes::admin.nav.codes',
+                        'name' => trans('creatorscodes::admin.nav.codes'),
                     ],
                     'creatorscodes.admin.commissions' => [
-                        'name' => 'creatorscodes::admin.nav.commissions',
+                        'name' => trans('creatorscodes::admin.nav.commissions'),
                     ],
                 ],
             ],
@@ -83,7 +83,7 @@ class CreatorsCodesServiceProvider extends BasePluginServiceProvider
         return [
             'creatorscodes' => [
                 'route' => 'creatorscodes.support',
-                'name' => 'creatorscodes::messages.nav.support',
+                'name' => trans('creatorscodes::messages.nav.support'),
                 'icon' => 'bi bi-person-heart',
             ],
         ];
